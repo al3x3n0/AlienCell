@@ -8,10 +8,18 @@
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.123" />
+    <PackageReference Include="EasyCaching.Redis" Version="1.5.1" />
+    <PackageReference Include="EasyCaching.Serialization.MessagePack" Version="1.5.1" />
     <PackageReference Include="Grpc.AspNetCore" Version="2.40.0" />
     <PackageReference Include="MagicOnion" Version="4.4.1" />
     <PackageReference Include="MagicOnion.Server" Version="4.4.1" />
+    <PackageReference Include="MessagePipe" Version="1.7.2" />
+    <PackageReference Include="MicroOrm.Dapper.Repositories" Version="1.21.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.4" />
+    <PackageReference Include="MySql.Data" Version="8.0.29" />
+    <PackageReference Include="Nethereum.Portable" Version="4.0.5" />
     <PackageReference Include="Quartz" Version="3.4.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.17.0" />
   </ItemGroup>
 
   <ItemGroup>
