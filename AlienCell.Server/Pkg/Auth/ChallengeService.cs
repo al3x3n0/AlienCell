@@ -47,18 +47,22 @@ namespace AlienCell.Server.Auth
             var cp = _cpFactory.GetCachingProvider(_cachingProvider);
             var expiresTimeSpan = TimeSpan.FromMinutes(1);
             var expires = DateTimeOffset.UtcNow.Add(expiresTimeSpan);
-            await cp.SetAsync(address, new Challenge(nonce, expires), expiresTimeSpan);
+            var cacheKey = MakeCacheKey(address);
+            await cp.SetAsync(cacheKey, new Challenge(nonce, expires), expiresTimeSpan);
             return nonce;
         }
 
         public async Task<string> VerifyChallenge(string address, string signature)
         {
+            var cacheKey = MakeCacheKey(address);
             var cp = _cpFactory.GetCachingProvider(_cachingProvider);
-            var challenge = await cp.GetAsync<Challenge>(address);
+            var challenge = await cp.GetAsync<Challenge>(cacheKey);
             var addressRec = _signer.HashAndEcRecover(challenge.Value.Nonce, signature);
             await cp.RemoveAsync(address);
             return addressRec;
         }
+
+        private static string MakeCacheKey(string address) => $"challenge:{address}";
 
         public static string GetNonce(int length)
         {

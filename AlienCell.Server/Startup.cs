@@ -15,6 +15,7 @@ using MicroOrm.Dapper.Repositories.SqlGenerator;
 
 using AlienCell.Server.Auth;
 using AlienCell.Server.DB;
+using AlienCell.Server.Repositories;
 
 
 namespace AlienCell.Server
@@ -48,6 +49,8 @@ namespace AlienCell.Server
 
             services.Configure<DBConnectionOptions>(Configuration.GetSection("AlienCell.Server.DB"));
             services.AddSingleton<DbContext>();
+
+            services.AddSingleton<UserRepository>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>

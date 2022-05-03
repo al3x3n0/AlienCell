@@ -29,5 +29,6 @@ if (validateResp.Success)
 */
 
 var client = MagicOnionClient.Create<IGameService>(channel);
+Console.WriteLine($"Lolling!");
 var res = await client.LolAsync();
 Console.WriteLine($"Got result: {res}");
