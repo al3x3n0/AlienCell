@@ -12,6 +12,7 @@ var channel = GrpcChannel.ForAddress("http://localhost:5162");
 var address = "0x6530675f096Cf36046d6839750c5C6Ee6C2354E2";
 var privKey = "0x5182c0c53f67a3b1db51f712c0c2e007bc8f138b55f8c76a4540fb61aa253ce6";
 
+/*
 Console.WriteLine("Trying to login...");
 var client = MagicOnionClient.Create<IAuthService>(channel);
 var challengeResp = await client.ChallengeAsync(address);
@@ -25,3 +26,8 @@ if (validateResp.Success)
 {
     Console.WriteLine($"Got token: {validateResp.Token}\nExpires: {validateResp.Expiration}");
 }
+*/
+
+var client = MagicOnionClient.Create<IGameService>(channel);
+var res = await client.LolAsync();
+Console.WriteLine($"Got result: {res}");

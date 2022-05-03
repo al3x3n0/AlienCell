@@ -11,8 +11,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using MicroOrm.Dapper.Repositories.SqlGenerator;
 
 using AlienCell.Server.Auth;
+using AlienCell.Server.DB;
 
 
 namespace AlienCell.Server
@@ -43,6 +45,9 @@ namespace AlienCell.Server
 
             services.AddSingleton<JwtTokenService>();
             services.Configure<JwtTokenServiceOptions>(Configuration.GetSection("AlienCell.Server.Auth:JwtTokenService"));
+
+            services.Configure<DBConnectionOptions>(Configuration.GetSection("AlienCell.Server.DB"));
+            services.AddSingleton<DbContext>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
