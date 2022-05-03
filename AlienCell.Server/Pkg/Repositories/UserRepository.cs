@@ -14,7 +14,7 @@ public partial class User
     private readonly UserModel _model;
     private readonly DbContext _db;
 
-    public UserModel Model { get; }
+    public UserModel Model { get => _model; }
 
     public int Id { get => Model.Id; }
 
@@ -51,16 +51,17 @@ public partial class UserRepository
         if (userCacheValue.HasValue)
         {
             user = userCacheValue.Value;
+            Console.WriteLine($"FROM CACHE: {user}");
         }
         else
         {
             user = await _db.Users.FindAsync(m => m.Id == id);
+            Console.WriteLine($"FROM DB: {user}");
             if (user is not null)
             {
                 await this._cp.SetAsync(cacheKey, user, TimeSpan.FromMinutes(1));
             }
         }
-
         return new User(user, _db);
     }
 }

@@ -35,7 +35,7 @@ public partial class GameService : ServiceBase<IGameService>, IGameService
     public async UnaryResult<int> LolAsync()
     {
         var user = await GetUserAsync(1);
-        Console.WriteLine($"User is null: {user.Model is null}, {this.DbChanges}");
+        Console.WriteLine($"UserId: {user.Model.Id}, {this.DbChanges}");
         return 0;
     }
 }
