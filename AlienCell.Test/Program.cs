@@ -28,7 +28,11 @@ if (validateResp.Success)
 }
 */
 
+var cheatsClient = MagicOnionClient.Create<ICheatService>(channel);
+var heroId = await cheatsClient.AddHero(1, 1);
+Console.WriteLine($"New hero ID: {heroId}");
+
 var client = MagicOnionClient.Create<IGameService>(channel);
 Console.WriteLine($"Lolling!");
-var res = await client.LolAsync();
+var res = await client.GetUserAsync(1);
 Console.WriteLine($"Got result: {res}");

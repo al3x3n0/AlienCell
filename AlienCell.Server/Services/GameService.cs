@@ -16,8 +16,9 @@ namespace AlienCell.Server.Services
 public partial class GameService : ServiceBase<IGameService>, IGameService
 {
     private readonly UserRepository _users;
+    public UserRepository Users { get => _users; }
 
-    private DbChangeSet DbChanges
+    private DbChangeSet? Changes
     {
         get => (this.Context.Items[nameof(DbChangeSet)] as DbChangeSet);
     }
@@ -27,16 +28,10 @@ public partial class GameService : ServiceBase<IGameService>, IGameService
         this._users = users;
     }
 
-    private Task<User> GetUserAsync(int id)
+    public async UnaryResult<int> GetUserAsync(int id)
     {
-        return this._users.GetAsync(this.Context, id);
-    }
-
-    public async UnaryResult<int> LolAsync()
-    {
-        var user = await GetUserAsync(1);
-        Console.WriteLine($"UserId: {user.Model.Id}, {this.DbChanges}");
-        return 0;
+        var user = await this.Users.GetAsync(id);
+        return user.Model.Id;
     }
 }
 

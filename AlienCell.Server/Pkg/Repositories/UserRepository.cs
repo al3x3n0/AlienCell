@@ -2,6 +2,7 @@ using System;
 using EasyCaching.Core;
 using MagicOnion.Server;
 
+using AlienCell.Server.Cache;
 using AlienCell.Server.DB;
 using AlienCell.Server.DB.Generated.Models;
 
@@ -28,38 +29,27 @@ public partial class User
 public partial class UserRepository
 {
 
-    private readonly IEasyCachingProviderFactory _cpFactory;    
-    private readonly IEasyCachingProvider _cp;
+    private readonly UserCache _userCache;
     private readonly DbContext _db;
 
     public UserRepository(
         DbContext db,
-        IEasyCachingProviderFactory cpFactory)
+        UserCache userCache)
     {
         this._db = db ?? throw new ArgumentNullException(nameof(db));
-        this._cpFactory = cpFactory ?? throw new ArgumentNullException(nameof(cpFactory));
-        this._cp = cpFactory.GetCachingProvider("redis"); //FIXME
+        this._userCache = userCache ?? throw new ArgumentNullException(nameof(userCache));
     }
 
-    private static string MakeCacheKey(int id) => $"users:{id}";
-
-    public async Task<User> GetAsync(ServiceContext context, int id)
+    public async Task<User> GetAsync(int id)
     {
-        var cacheKey = UserRepository.MakeCacheKey(id);
-        var userCacheValue = await this._cp.GetAsync<UserModel>(cacheKey);
-        UserModel user = null;
-        if (userCacheValue.HasValue)
+        var (user, found) = await this._userCache.GetAsync(id);
+        Console.WriteLine($"FROM CACHE: found={found}");
+        if (!found)
         {
-            user = userCacheValue.Value;
-            Console.WriteLine($"FROM CACHE: {user}");
-        }
-        else
-        {
-            user = await _db.Users.FindAsync(m => m.Id == id);
-            Console.WriteLine($"FROM DB: {user}");
+            user = await this.FindByIdAsync(id);
             if (user is not null)
             {
-                await this._cp.SetAsync(cacheKey, user, TimeSpan.FromMinutes(1));
+                await this._userCache.SetAsync(user);
             }
         }
         return new User(user, _db);

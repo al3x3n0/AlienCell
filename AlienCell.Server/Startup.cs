@@ -14,6 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 using MicroOrm.Dapper.Repositories.SqlGenerator;
 
 using AlienCell.Server.Auth;
+using AlienCell.Server.Cache;
 using AlienCell.Server.DB;
 using AlienCell.Server.Repositories;
 
@@ -32,7 +33,11 @@ namespace AlienCell.Server
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddGrpc();
-            services.AddMagicOnion();
+
+            services.AddMagicOnion(options => {
+                options.EnableCurrentContext = true;
+            });
+
             services.AddMessagePipe();
             
             services.AddEasyCaching(opt =>
@@ -50,6 +55,8 @@ namespace AlienCell.Server
             services.Configure<DBConnectionOptions>(Configuration.GetSection("AlienCell.Server.DB"));
             services.AddSingleton<DbContext>();
 
+            services.Configure<UserCacheOptions>(Configuration.GetSection("AlienCell.Server.Cache:UserCache"));
+            services.AddSingleton<UserCache>();
             services.AddSingleton<UserRepository>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
