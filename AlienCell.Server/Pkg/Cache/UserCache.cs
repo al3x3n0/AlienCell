@@ -38,6 +38,12 @@ public class UserCache
         var cacheKey = UserCache.MakeCacheKey(userModel.Id);
         await this._cp.SetAsync<UserModel>(cacheKey, userModel, _expireTimeSpan);
     }
+
+    public async Task RemoveAsync(UserModel userModel)
+    {
+        var cacheKey = UserCache.MakeCacheKey(userModel.Id);
+        await this._cp.RemoveAsync(cacheKey);
+    }
 }
 
 public class UserCacheOptions

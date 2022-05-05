@@ -1,0 +1,53 @@
+version: '2.1'
+
+services:
+    ac-redis: 
+        image: docker.io/bitnami/redis:6.2
+        environment:
+            - ALLOW_EMPTY_PASSWORD=yes
+            - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
+        ports:
+            - '6379:6379'
+        volumes:
+            - 'redis_data:/bitnami/redis/data'
+    ac-mariadb:
+        image: 'docker.io/bitnami/mariadb:10.7'
+        ports:
+            - '3306:3306'
+        volumes:
+            - 'mariadb_data:/bitnami/mariadb'
+        environment:
+            - MARIADB_ROOT_PASSWORD=HMZx2R308eA3ULP3cUJx
+            - MARIADB_DATABASE=ACDB
+            - MARIADB_USER=game_master
+            - MARIADB_PASSWORD=BGsHN80a4ZRBZnCyV7Sl
+        healthcheck:
+            test: ['CMD', '/opt/bitnami/scripts/mariadb/healthcheck.sh']
+            interval: 15s
+            timeout: 5s
+            retries: 6
+    ac-nats:
+        image: docker.io/bitnami/nats:2
+        ports:
+            - '4222:4222'
+            - '6222:6222'
+            - "8222:8222"
+        hostname: ac-nats-server
+    #ac-debezium:
+    #    depends_on:
+    #        - ac-mariadb
+    #        - ac-nats
+volumes:
+    redis_data:
+        driver: local
+        driver_opts:
+            o: bind
+            type: none
+            device: ./volume_data/redis
+    mariadb_data:
+        driver: local
+        driver_opts:
+            o: bind
+            type: none
+            device: ./volume_data/mariadb
+    

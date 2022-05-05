@@ -397,3 +397,9 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 
+# docker deployment
+AlienCell.Server/docker/volume_data/redis/*
+AlienCell.Server/docker/volume_data/mariadb/*
+!AlienCell.Server/docker/volume_data/redis/.gitkeep
+!AlienCell.Server/docker/volume_data/mariadb/.gitkeep
+
