@@ -16,27 +16,44 @@ services:
             - '3306:3306'
         volumes:
             - 'mariadb_data:/bitnami/mariadb'
+            - $PWD/mariadb/init:/docker-entrypoint-initdb.d:ro
         environment:
             - MARIADB_ROOT_PASSWORD=HMZx2R308eA3ULP3cUJx
             - MARIADB_DATABASE=ACDB
             - MARIADB_USER=game_master
             - MARIADB_PASSWORD=BGsHN80a4ZRBZnCyV7Sl
+            - MARIADB_EXTRA_FLAGS=--server-id=1 --binlog-format=row --binlog-row-image=full --log-bin=mysql-bin --sync-binlog=1
+            - MARIADB_REPLICATION_MODE=master
+            - MARIADB_REPLICATION_USER=ac_repl
+            - MARIADB_REPLICATION_PASSWORD=em33Eij48eJeFYOwvPqX
         healthcheck:
             test: ['CMD', '/opt/bitnami/scripts/mariadb/healthcheck.sh']
             interval: 15s
             timeout: 5s
             retries: 6
     ac-nats:
-        image: docker.io/bitnami/nats:2
+        image: 'docker.io/bitnami/nats:2'
         ports:
             - '4222:4222'
             - '6222:6222'
             - "8222:8222"
-        hostname: ac-nats-server
-    #ac-debezium:
-    #    depends_on:
-    #        - ac-mariadb
-    #        - ac-nats
+        volumes:
+            - $PWD/nats/nats-server.conf:/bitnami/nats/conf/nats-server.conf:ro
+
+    ac-debezium:
+        image: 'debezium/server'
+        ports:
+            - '8081:8080'
+        volumes:
+            - 'debezium_data:/debezium/data'
+            - 'debezium_conf:/debezium/conf'
+        links:
+            - ac-mariadb
+            - ac-redis
+        depends_on:
+            ac-mariadb:
+                condition: service_healthy
+
 volumes:
     redis_data:
         driver: local
@@ -50,4 +67,18 @@ volumes:
             o: bind
             type: none
             device: ./volume_data/mariadb
+    debezium_data:
+        driver: local
+        driver_opts:
+            o: bind
+            type: none
+            device: ./volume_data/debezium
+    debezium_conf:
+        driver: local
+        driver_opts:
+            o: bind
+            type: none
+            device: ./debezium/conf
+    
+
     
