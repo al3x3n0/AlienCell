@@ -10,6 +10,10 @@ services:
             - '6379:6379'
         volumes:
             - 'redis_data:/bitnami/redis/data'
+    redisinsight:
+        image: redislabs/redisinsight
+        ports:
+            - 8082:8001
     ac-mariadb:
         image: 'docker.io/bitnami/mariadb:10.7'
         ports:
@@ -60,25 +64,25 @@ volumes:
         driver_opts:
             o: bind
             type: none
-            device: ./volume_data/redis
+            device: $PWD/docker/volume_data/redis
     mariadb_data:
         driver: local
         driver_opts:
             o: bind
             type: none
-            device: ./volume_data/mariadb
+            device: $PWD/docker/volume_data/mariadb
     debezium_data:
         driver: local
         driver_opts:
             o: bind
             type: none
-            device: ./volume_data/debezium
+            device: $PWD/docker/volume_data/debezium
     debezium_conf:
         driver: local
         driver_opts:
             o: bind
             type: none
-            device: ./debezium/conf
+            device: $PWD/docker/debezium/conf
     
 
     

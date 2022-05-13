@@ -398,10 +398,10 @@ FodyWeavers.xsd
 *.sln.iml
 
 # docker deployment
-AlienCell.Server/docker/volume_data/redis/*
-AlienCell.Server/docker/volume_data/mariadb/*
-AlienCell.Server/docker/volume_data/debezium/*
-!AlienCell.Server/docker/volume_data/redis/.gitkeep
-!AlienCell.Server/docker/volume_data/mariadb/.gitkeep
-!AlienCell.Server/docker/volume_data/debezium/.gitkeep
+docker/volume_data/redis/*
+docker/volume_data/mariadb/*
+docker/volume_data/debezium/*
+!docker/volume_data/redis/.gitkeep
+!docker/volume_data/mariadb/.gitkeep
+!docker/volume_data/debezium/.gitkeep
 
