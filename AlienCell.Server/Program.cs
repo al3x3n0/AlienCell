@@ -7,6 +7,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 
+
 namespace AlienCell.Server
 {
     class Program
@@ -20,17 +21,7 @@ namespace AlienCell.Server
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder
-                        .UseKestrel(options =>
-                        {
-                            // WORKAROUND: Accept HTTP/2 only to allow insecure HTTP/2 connections during development.
-                            options.ConfigureEndpointDefaults(endpointOptions =>
-                            {
-                                endpointOptions.Protocols = HttpProtocols.Http2;
-                            });
-                        })
-                        .UseStartup<Startup>();
+                    webBuilder.UseStartup<Startup>();
                 });
     }
 }
-

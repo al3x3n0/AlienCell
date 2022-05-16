@@ -15,7 +15,7 @@ namespace AlienCell.Server.Auth
             _securityKey = new SymmetricSecurityKey(Convert.FromBase64String(jwtTokenServiceOptions.Value.Secret));
         }
 
-        public (string Token, DateTime Expires) CreateToken(string address)
+        public (string Token, DateTime Expires) CreateToken(string userId)
         {
             var jwtTokenHandler = new JwtSecurityTokenHandler();
             var expires = DateTime.UtcNow.AddSeconds(10);
@@ -24,7 +24,7 @@ namespace AlienCell.Server.Auth
                 SigningCredentials = new SigningCredentials(_securityKey, SecurityAlgorithms.HmacSha256),
                 Subject = new ClaimsIdentity(new[]
                 {
-                    new Claim(ClaimTypes.NameIdentifier, address),
+                    new Claim(ClaimTypes.NameIdentifier, userId),
                 }),
                 Expires = expires,
             });
@@ -32,10 +32,4 @@ namespace AlienCell.Server.Auth
             return (token, expires);
         }
     }
-
-    public class JwtTokenServiceOptions
-    {
-        public string Secret { get; set; }
-    }
 }
-

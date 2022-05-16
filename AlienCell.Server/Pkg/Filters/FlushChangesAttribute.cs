@@ -3,7 +3,7 @@ using MagicOnion;
 using MagicOnion.Server;
 
 using AlienCell.Server.Cache;
-using AlienCell.Server.DB;
+using AlienCell.Server.Db;
 
 
 namespace AlienCell.Server.Filters

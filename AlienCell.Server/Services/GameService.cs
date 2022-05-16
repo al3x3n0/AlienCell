@@ -3,7 +3,7 @@ using MagicOnion.Server;
 using Microsoft.AspNetCore.Authorization;
 
 using AlienCell.Shared.Services;
-using AlienCell.Server.DB;
+using AlienCell.Server.Db;
 using AlienCell.Server.Repositories;
 using AlienCell.Server.Filters;
 

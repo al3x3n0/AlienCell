@@ -3,7 +3,7 @@ using EasyCaching.Core;
 using MagicOnion.Server;
 using Microsoft.Extensions.Options;
 
-using AlienCell.Server.DB.Generated.Models;
+using AlienCell.Server.Db.Generated.Models;
 
 
 namespace AlienCell.Server.Cache

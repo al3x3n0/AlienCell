@@ -1,10 +1,10 @@
 using MessagePack;
 
 
-namespace AlienCell.Shared.MessagePackObjects
+namespace AlienCell.Shared.Protocol
 {
     [MessagePackObject]
-    public struct JoinRequest
+    public struct JoinChatRoomRequest
     {
         [Key(0)]
         public string RoomName { get; set; }

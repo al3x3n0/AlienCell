@@ -1,7 +1,7 @@
-namespace AlienCell.Server.DB
+namespace AlienCell.Server.Db
 {
 
-public class DBConnectionOptions
+public class DbConnectionOptions
 {
     public string Host { get; set; }
     public string Port { get; set; }

@@ -1,4 +1,4 @@
-namespace AlienCell.Server.DB
+namespace AlienCell.Server.Db
 {
 
 public partial class DbChangeSet

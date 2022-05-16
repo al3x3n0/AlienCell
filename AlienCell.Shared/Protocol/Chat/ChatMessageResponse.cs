@@ -1,10 +1,10 @@
 using MessagePack;
 
 
-namespace AlienCell.Shared.MessagePackObjects
+namespace AlienCell.Shared.Protocol
 {
     [MessagePackObject]
-    public struct MessageResponse
+    public struct ChatMessageResponse
     {
         [Key(0)]
         public string UserName { get; set; }

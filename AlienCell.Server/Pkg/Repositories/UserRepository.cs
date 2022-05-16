@@ -3,8 +3,8 @@ using EasyCaching.Core;
 using MagicOnion.Server;
 
 using AlienCell.Server.Cache;
-using AlienCell.Server.DB;
-using AlienCell.Server.DB.Generated.Models;
+using AlienCell.Server.Db;
+using AlienCell.Server.Db.Generated.Models;
 
 
 namespace AlienCell.Server.Repositories
@@ -43,7 +43,6 @@ public partial class UserRepository
     public async Task<User> GetAsync(int id)
     {
         var (user, found) = await this._userCache.GetAsync(id);
-        Console.WriteLine($"FROM CACHE: found={found}");
         if (!found)
         {
             user = await this.FindByIdAsync(id);

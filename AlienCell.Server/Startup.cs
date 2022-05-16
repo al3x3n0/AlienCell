@@ -15,7 +15,7 @@ using MicroOrm.Dapper.Repositories.SqlGenerator;
 
 using AlienCell.Server.Auth;
 using AlienCell.Server.Cache;
-using AlienCell.Server.DB;
+using AlienCell.Server.Db;
 using AlienCell.Server.Repositories;
 
 
@@ -34,7 +34,8 @@ namespace AlienCell.Server
         {
             services.AddGrpc();
 
-            services.AddMagicOnion(options => {
+            services.AddMagicOnion(options =>
+            {
                 options.EnableCurrentContext = true;
             });
 
@@ -52,7 +53,7 @@ namespace AlienCell.Server
             services.AddSingleton<JwtTokenService>();
             services.Configure<JwtTokenServiceOptions>(Configuration.GetSection("AlienCell.Server.Auth:JwtTokenService"));
 
-            services.Configure<DBConnectionOptions>(Configuration.GetSection("AlienCell.Server.DB"));
+            services.Configure<DbConnectionOptions>(Configuration.GetSection("AlienCell.Server.DB"));
             services.AddSingleton<DbContext>();
 
             services.Configure<UserCacheOptions>(Configuration.GetSection("AlienCell.Server.Cache:UserCache"));

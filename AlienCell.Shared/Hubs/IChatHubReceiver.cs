@@ -1,4 +1,4 @@
-using AlienCell.Shared.MessagePackObjects;
+using AlienCell.Shared.Protocol;
 
 
 namespace AlienCell.Shared.Hubs
@@ -7,7 +7,7 @@ namespace AlienCell.Shared.Hubs
     {
         void OnJoin(string name);
         void OnLeave(string name);
-        void OnSendMessage(MessageResponse message);
+        void OnSendMessage(ChatMessageResponse message);
     }
 }
 

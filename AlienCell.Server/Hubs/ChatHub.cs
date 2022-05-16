@@ -1,9 +1,10 @@
-using AlienCell.Shared.Hubs;
-using AlienCell.Shared.MessagePackObjects;
 using MagicOnion.Server.Hubs;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+
+using AlienCell.Shared.Hubs;
+using AlienCell.Shared.Protocol;
 
 
 namespace AlienCell.Server.Hubs
@@ -13,7 +14,7 @@ namespace AlienCell.Server.Hubs
         private IGroup _room;
         private string myName;
 
-        public async Task JoinAsync(JoinRequest request)
+        public async Task JoinAsync(JoinChatRoomRequest request)
         {
             _room = await this.Group.AddAsync(request.RoomName);
 
@@ -32,7 +33,7 @@ namespace AlienCell.Server.Hubs
 
         public async Task SendMessageAsync(string message)
         {
-            var response = new MessageResponse { UserName = this.myName, Message = message };
+            var response = new ChatMessageResponse { UserName = this.myName, Message = message };
             this.Broadcast(_room).OnSendMessage(response);
 
             await Task.CompletedTask;
