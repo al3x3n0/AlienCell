@@ -10,6 +10,7 @@ public partial class GameService
 {
     public async UnaryResult<int> RetireArtifact(long id)
     {
+        await Task.Delay(0);
         return 0;
     }
 }

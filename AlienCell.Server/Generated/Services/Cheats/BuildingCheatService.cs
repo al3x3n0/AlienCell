@@ -1,24 +1,23 @@
 //
+using System;
 using MagicOnion;
 
 using AlienCell.Server.Repositories;
-using AlienCell.Server.Db.Generated.Models;
+using AlienCell.Server.Db.Models;
 
 namespace AlienCell.Server.Services
 {
 
 public partial class CheatService
 {
-    public async UnaryResult<int> AddBuilding(int userId, int dataId)
+    public async UnaryResult<Ulid> AddBuilding(Ulid userId, int dataId)
     {
         var building_model = new BuildingModel() 
             {
-                UserId = userId,
                 Data = dataId
             };
         var user = await _userRepo.GetAsync(userId);
-        Console.WriteLine($"User cheat: {user?.Id}");
-        await user.AddAsync(building_model);
+        await _userRepo.AddToUserAsync(user, building_model);
         return building_model.Id;
     }
 }

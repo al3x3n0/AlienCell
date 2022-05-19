@@ -2,12 +2,12 @@
 using MicroOrm.Dapper.Repositories;
 using MicroOrm.Dapper.Repositories.DbContext;
 
-using AlienCell.Server.Db.Generated.Models;
+using AlienCell.Server.Db.Models;
 
 namespace AlienCell.Server.Db
 {
 
-public partial interface IDbContext : IDapperDbContext
+public interface IDbContext : IDapperDbContext
 {
     IDapperRepository<UserModel> Users { get; }
     IDapperRepository<ArtifactModel> Artifacts { get; }

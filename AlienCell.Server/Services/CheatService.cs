@@ -1,9 +1,11 @@
+using System;
 using MagicOnion;
 using MagicOnion.Server;
 
 using AlienCell.Shared.Services;
 using AlienCell.Server.Cache;
 using AlienCell.Server.Db;
+using AlienCell.Server.Db.Models;
 using AlienCell.Server.Repositories;
 using AlienCell.Server.Filters;
 
@@ -23,6 +25,13 @@ public partial class CheatService : ServiceBase<ICheatService>, ICheatService
     {
         this._db = db ?? throw new ArgumentNullException(nameof(db));
         this._userRepo = userRepo ?? throw new ArgumentNullException(nameof(userRepo));
+    }
+
+    public async UnaryResult<Ulid> CreateNewUser()
+    {
+        var user = new UserModel();
+        await _db.Users.InsertAsync(user);
+        return user.Id;
     }
 }
 

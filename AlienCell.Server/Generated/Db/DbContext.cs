@@ -4,21 +4,21 @@ using MicroOrm.Dapper.Repositories;
 using MicroOrm.Dapper.Repositories.DbContext;
 using MicroOrm.Dapper.Repositories.SqlGenerator;
 
-using AlienCell.Server.Db.Generated.Models;
+using AlienCell.Server.Db.Models;
 
 namespace AlienCell.Server.Db
 {
 
-public partial class DbContext : DapperDbContext, IDbContext
+public partial class DbContext
 {
 
     private void InitDb()
     {
-        Connection.Execute("CREATE TABLE IF NOT EXISTS `user_models` (`Id` int not null auto_increment, `Address` varbinary(32) not null, INDEX `Address_Idx` (`Address`), PRIMARY KEY (`Id`));");
-        Connection.Execute("CREATE TABLE IF NOT EXISTS `artifact_models` (`Id` int not null auto_increment, `UserId` int not null, `Exp` int not null, `Level` int not null, `Data` int not null, PRIMARY KEY (`Id`));");
-        Connection.Execute("CREATE TABLE IF NOT EXISTS `building_models` (`Id` int not null auto_increment, `UserId` int not null, `Level` int not null, `Data` int not null, PRIMARY KEY (`Id`));");
-        Connection.Execute("CREATE TABLE IF NOT EXISTS `hero_models` (`Id` int not null auto_increment, `UserId` int not null, `Exp` int not null, `Level` int not null, `Data` int not null, PRIMARY KEY (`Id`));");
-        Connection.Execute("CREATE TABLE IF NOT EXISTS `weapon_models` (`Id` int not null auto_increment, `UserId` int not null, `Exp` int not null, `Level` int not null, `Data` int not null, PRIMARY KEY (`Id`));");
+        Connection.Execute("CREATE TABLE IF NOT EXISTS `user_models` (`Id` varbinary(16) not null, `Address` varbinary(32) default null, INDEX `Address_Idx` (`Address`), PRIMARY KEY (`Id`));");
+        Connection.Execute("CREATE TABLE IF NOT EXISTS `artifact_models` (`Id` varbinary(16) not null, `UserId` varbinary(16) not null, `Exp` int not null, `Level` int not null, `Data` int not null, PRIMARY KEY (`Id`));");
+        Connection.Execute("CREATE TABLE IF NOT EXISTS `building_models` (`Id` varbinary(16) not null, `UserId` varbinary(16) not null, `Level` int not null, `Data` int not null, PRIMARY KEY (`Id`));");
+        Connection.Execute("CREATE TABLE IF NOT EXISTS `hero_models` (`Id` varbinary(16) not null, `UserId` varbinary(16) not null, `Exp` int not null, `Level` int not null, `Data` int not null, PRIMARY KEY (`Id`));");
+        Connection.Execute("CREATE TABLE IF NOT EXISTS `weapon_models` (`Id` varbinary(16) not null, `UserId` varbinary(16) not null, `Exp` int not null, `Level` int not null, `Data` int not null, PRIMARY KEY (`Id`));");
     }
 
     private IDapperRepository<UserModel> _user_models;

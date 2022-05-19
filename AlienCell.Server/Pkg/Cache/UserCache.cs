@@ -3,7 +3,7 @@ using EasyCaching.Core;
 using MagicOnion.Server;
 using Microsoft.Extensions.Options;
 
-using AlienCell.Server.Db.Generated.Models;
+using AlienCell.Server.Db.Models;
 
 
 namespace AlienCell.Server.Cache
@@ -24,9 +24,9 @@ public class UserCache
         this._expireTimeSpan = TimeSpan.Parse(userCacheOptions.Value.Expiration);
     }
 
-    private static string MakeCacheKey(int id) => $"users:{id}";
+    private static string MakeCacheKey(Ulid id) => $"users:{id.ToString()}";
 
-    public async Task<(UserModel, bool)> GetAsync(int id)
+    public async Task<(UserModel, bool)> GetAsync(Ulid id)
     {
         var cacheKey = UserCache.MakeCacheKey(id);
         var cacheValue = await this._cp.GetAsync<UserModel>(cacheKey);

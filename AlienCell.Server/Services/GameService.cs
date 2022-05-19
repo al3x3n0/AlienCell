@@ -28,10 +28,10 @@ public partial class GameService : ServiceBase<IGameService>, IGameService
         this._users = users;
     }
 
-    public async UnaryResult<int> GetUserAsync(int id)
+    public async UnaryResult<Ulid> GetUserAsync(Ulid id)
     {
         var user = await this.Users.GetAsync(id);
-        return user.Model.Id;
+        return user.Id;
     }
 }
 

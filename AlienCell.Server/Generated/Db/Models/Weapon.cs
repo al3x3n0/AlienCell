@@ -1,22 +1,26 @@
 //
+using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using MicroOrm.Dapper.Repositories.Attributes;
 
-namespace AlienCell.Server.Db.Generated.Models
+using AlienCell.Server.Db;
+
+
+namespace AlienCell.Server.Db.Models
 {
 
 [MessagePack.MessagePackObject(true)]
-[Table("building_models")]
-public class BuildingModel
+[Table("weapon_models")]
+public class WeaponModel : IModel
 {
     [Key]
-    [Identity]
-    public int Id { get; set; }
+    public Ulid Id { get; set; } = Ulid.NewUlid();
 
-    public int UserId { get; set; }
+    public Ulid UserId { get; set; }
 
+    public long Exp { get; set; }
     public long Level { get; set; }
     public long Data { get; set; }
 }

@@ -4,27 +4,11 @@ using MagicOnion.Server;
 
 using AlienCell.Server.Cache;
 using AlienCell.Server.Db;
-using AlienCell.Server.Db.Generated.Models;
+using AlienCell.Server.Db.Models;
 
 
 namespace AlienCell.Server.Repositories
 {
-
-public partial class User
-{
-    private readonly UserModel _model;
-    private readonly DbContext _db;
-
-    public UserModel Model { get => _model; }
-
-    public int Id { get => Model.Id; }
-
-    public User(UserModel model, DbContext db)
-    {
-        _model = model;
-        _db = db;
-    }
-}
 
 public partial class UserRepository
 {
@@ -40,18 +24,18 @@ public partial class UserRepository
         this._userCache = userCache ?? throw new ArgumentNullException(nameof(userCache));
     }
 
-    public async Task<User> GetAsync(int id)
+    public async Task<UserModel> GetAsync(Ulid id)
     {
         var (user, found) = await this._userCache.GetAsync(id);
         if (!found)
         {
-            user = await this.FindByIdAsync(id);
+            user = await this.GetFromDbAsync(id);
             if (user is not null)
             {
                 await this._userCache.SetAsync(user);
             }
         }
-        return new User(user, _db);
+        return user;
     }
 }
 

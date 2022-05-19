@@ -22,6 +22,7 @@
     <PackageReference Include="Quartz" Version="3.4.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.17.0" />
     <PackageReference Include="Ulid" Version="1.2.6" />
+    <PackageReference Include="Ulid.MessagePack" Version="1.2.6" />
   </ItemGroup>
 
   <ItemGroup>

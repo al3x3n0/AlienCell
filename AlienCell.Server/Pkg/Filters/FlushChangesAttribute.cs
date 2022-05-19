@@ -22,21 +22,16 @@ public class FlushChangesAttribute : MagicOnionFilterAttribute
 
     public override async ValueTask Invoke(ServiceContext context, Func<ServiceContext, ValueTask> next)
     {
-        IDbTransaction tx = null;
         try
         {
-            tx = this._db.BeginTransaction();
-            context.Items["tx"] = tx;
             var changeSet = new DbChangeSet();
             context.Items[nameof(DbChangeSet)] = changeSet;
             await next(context);
             await changeSet.FlushDbChanges(this._db);
             await changeSet.FlushCache(this._userCache);
-            tx?.Commit();
         }
         catch
         {
-            tx?.Rollback();
             throw;
         }
         finally

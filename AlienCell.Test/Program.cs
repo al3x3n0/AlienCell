@@ -1,5 +1,6 @@
 ﻿using Grpc.Net.Client;
 using MagicOnion.Client;
+using MessagePack;
 using Nethereum.Signer;
 
 using AlienCell.Shared.Services;
@@ -28,11 +29,18 @@ if (validateResp.Success)
 }
 */
 
-var cheatsClient = MagicOnionClient.Create<ICheatService>(channel);
-var heroId = await cheatsClient.AddHero(1, 1);
-Console.WriteLine($"New hero ID: {heroId}");
+var msgPackResolver = MessagePack.Resolvers.CompositeResolver.Create(
+    Cysharp.Serialization.MessagePack.UlidMessagePackResolver.Instance,
+    MessagePack.Resolvers.StandardResolver.Instance);
 
-var client = MagicOnionClient.Create<IGameService>(channel);
-Console.WriteLine($"Lolling!");
-var res = await client.GetUserAsync(1);
-Console.WriteLine($"Got result: {res}");
+var msgPackoptions = MessagePackSerializerOptions.Standard.WithResolver(msgPackResolver);
+MessagePackSerializer.DefaultOptions = msgPackoptions;
+
+var cheatsClient = MagicOnionClient.Create<ICheatService>(channel);
+var userId = await cheatsClient.CreateNewUser();
+Console.WriteLine($"New user ID: {userId.ToString()}");
+
+//var client = MagicOnionClient.Create<IGameService>(channel);
+//Console.WriteLine($"Lolling!");
+//var res = await client.GetUserAsync(1);
+//Console.WriteLine($"Got result: {res}");

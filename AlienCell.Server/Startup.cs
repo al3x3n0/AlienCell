@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MessagePack;
 using MessagePipe;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -84,6 +85,21 @@ namespace AlienCell.Server
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            //
+            //JsonConvert.DefaultSettings = () => new JsonSerializerSettings
+            //{
+            //    Converters = new List<JsonConverter> { new UlidConverter() }
+            //};
+            //
+            var msgPackResolver = MessagePack.Resolvers.CompositeResolver.Create(
+                Cysharp.Serialization.MessagePack.UlidMessagePackResolver.Instance,
+                MessagePack.Resolvers.StandardResolver.Instance);
+            var msgPackoptions = MessagePackSerializerOptions.Standard
+                .WithResolver(msgPackResolver);
+            MessagePackSerializer.DefaultOptions = msgPackoptions;
+            //
+            Dapper.SqlMapper.AddTypeHandler(new BinaryUlidHandler());
+            //
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

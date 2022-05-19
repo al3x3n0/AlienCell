@@ -9,7 +9,9 @@
 
   <ItemGroup>
     <PackageReference Include="MagicOnion.Client" Version="4.4.1" />
+    <PackageReference Include="MessagePack" Version="2.3.85" />
     <PackageReference Include="Nethereum.Signer" Version="4.4.1" />
+    <PackageReference Include="Ulid.MessagePack" Version="1.2.6" />
   </ItemGroup>
 
  <ItemGroup>

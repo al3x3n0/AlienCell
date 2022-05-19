@@ -1,4 +1,5 @@
 //
+using System;
 using MagicOnion;
 
 namespace AlienCell.Shared.Services
@@ -6,7 +7,7 @@ namespace AlienCell.Shared.Services
 
 public partial interface ICheatService
 {
-    public UnaryResult<int> AddWeapon(int userId, int dataId);
+    public UnaryResult<Ulid> AddWeapon(Ulid userId, int dataId);
 }
 
 }

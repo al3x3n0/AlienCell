@@ -1,3 +1,4 @@
+using System;
 using MagicOnion;
 
 
@@ -5,7 +6,7 @@ namespace AlienCell.Shared.Services
 {
     public partial interface IGameService : IService<IGameService>
     {
-        public UnaryResult<int> GetUserAsync(int id);
+        public UnaryResult<Ulid> GetUserAsync(Ulid id);
     }
 }
 
