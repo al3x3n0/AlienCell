@@ -14,22 +14,11 @@ public class FlushChangesAttribute : MagicOnionFilterAttribute
         ServiceContext context,
         Func<ServiceContext, ValueTask> next)
     {
-        try
-        {
-            var userRepo = context.ServiceProvider.GetService<IUserRepository>();
-            await next(context);
-            Console.WriteLine("Flushing changes to db...");
-            userRepo.CommitChanges();
-        }
-        catch
-        {
-            throw;
-        }
-        finally
-        {
-        }
+        var userRepo = context.ServiceProvider.GetService<IUserRepository>();
+        await next(context);
+        Console.WriteLine("Flushing changes to db...");
+        userRepo.CommitChanges();
     }
 }
 
 }
-

@@ -19,6 +19,7 @@ using AlienCell.Server.Auth;
 using AlienCell.Server.Cache;
 using AlienCell.Server.Db;
 using AlienCell.Server.Repositories;
+using AlienCell.Server.Services;
 
 
 namespace AlienCell.Server
@@ -54,11 +55,10 @@ namespace AlienCell.Server
                         Cysharp.Serialization.MessagePack.UlidMessagePackResolver.Instance,
                         MessagePack.Resolvers.StandardResolver.Instance
                     });
-                },"msgpack");
+                }, "msgpack");
             });
 
-            services.AddAutoMapper(
-                typeof(AlienCell.Server.Mappings.AutoMapping));
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
             services.AddSingleton<ChallengeService>();
             services.Configure<ChallengeServiceOptions>(Configuration.GetSection("AlienCell.Server.Auth:ChallengeService"));
@@ -67,13 +67,15 @@ namespace AlienCell.Server
             services.Configure<JwtTokenServiceOptions>(Configuration.GetSection("AlienCell.Server.Auth:JwtTokenService"));
 
             services.Configure<DbConnectionOptions>(Configuration.GetSection("AlienCell.Server.DB"));
-            services.AddSingleton<DbContext>();
+            services.AddSingleton<IDbContext, DbContext>();
 
             services.Configure<UserCacheOptions>(Configuration.GetSection("AlienCell.Server.Cache:UserCache"));
             services.AddSingleton<UserCache>();
             
             services.AddScoped<IDbChangeSet, DbChangeSet>();
             services.AddScoped<IUserRepository, UserRepository>();
+
+            services.AddScoped<ICurrentUserService, CurrentUserService>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>

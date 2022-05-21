@@ -16,6 +16,7 @@ namespace AlienCell.Server.Services
 
 //[Authorize]
 [FromTypeFilter(typeof(FlushChangesAttribute))]
+[FromTypeFilter(typeof(LoadCurrentUserAttribute))]
 public partial class GameService : ServiceBase<IGameService>, IGameService
 {
     private readonly IUserRepository _users;

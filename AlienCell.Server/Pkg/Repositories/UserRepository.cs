@@ -14,11 +14,11 @@ public partial class UserRepository : IUserRepository
 {
 
     private readonly UserCache _userCache;
-    private readonly DbContext _db;
+    private readonly IDbContext _db;
     private readonly IDbChangeSet _changes;
 
     public UserRepository(
-        DbContext db,
+        IDbContext db,
         UserCache userCache,
         IDbChangeSet changes)
     {
@@ -30,6 +30,7 @@ public partial class UserRepository : IUserRepository
     public async Task<UserModel> GetAsync(Ulid id)
     {
         var (user, found) = await this._userCache.GetAsync(id);
+        Console.WriteLine($"Fetching user:{id.ToString()} from cache: {found}");
         if (!found)
         {
             user = await this.GetFromDbAsync(id);
