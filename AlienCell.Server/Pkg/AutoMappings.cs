@@ -7,12 +7,13 @@ using AlienCell.Shared.Protocol.Models;
 
 namespace AlienCell.Server.Mappings
 {
-    public class AutoMapping : Profile
+    public partial class AutoMapping : Profile
     {
         public AutoMapping()
         {
             CreateMap<AccountModel, AccountDTO>().ReverseMap();
             CreateMap<UpdateAccountRequest, AccountModel>();
+            CreateGeneratedMappings();
         }
     }
 }

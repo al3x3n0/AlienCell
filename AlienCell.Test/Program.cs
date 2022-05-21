@@ -1,4 +1,5 @@
-﻿using Grpc.Net.Client;
+﻿using System;
+using Grpc.Net.Client;
 using MagicOnion.Client;
 using MessagePack;
 using Nethereum.Signer;
@@ -37,8 +38,14 @@ var msgPackoptions = MessagePackSerializerOptions.Standard.WithResolver(msgPackR
 MessagePackSerializer.DefaultOptions = msgPackoptions;
 
 var cheatsClient = MagicOnionClient.Create<ICheatService>(channel);
-var userId = await cheatsClient.CreateNewUser();
-Console.WriteLine($"New user ID: {userId.ToString()}");
+var gsClient = MagicOnionClient.Create<IGameService>(channel);
+//var userId = await cheatsClient.CreateNewUser();
+//Console.WriteLine($"New user ID: {userId.ToString()}");
+
+var userId = Ulid.Parse("01G3F0WVN1HFE4FAXCSN554BWX");
+var user = await gsClient.GetUserAsync(userId);
+Console.WriteLine($"User id: {user.Exp}");
+
 
 //var client = MagicOnionClient.Create<IGameService>(channel);
 //Console.WriteLine($"Lolling!");

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using MessagePack;
 using MessagePipe;
@@ -45,8 +46,19 @@ namespace AlienCell.Server
             services.AddEasyCaching(opt =>
             {
                 opt.UseRedis(Configuration, "redis");
-                opt.WithMessagePack("redis");
+                opt.WithMessagePack(x => 
+                {
+                    x.EnableCustomResolver = true; 
+                    x.CustomResolvers = MessagePack.Resolvers.CompositeResolver.Create(new MessagePack.IFormatterResolver[]
+                    {
+                        Cysharp.Serialization.MessagePack.UlidMessagePackResolver.Instance,
+                        MessagePack.Resolvers.StandardResolver.Instance
+                    });
+                },"msgpack");
             });
+
+            services.AddAutoMapper(
+                typeof(AlienCell.Server.Mappings.AutoMapping));
 
             services.AddSingleton<ChallengeService>();
             services.Configure<ChallengeServiceOptions>(Configuration.GetSection("AlienCell.Server.Auth:ChallengeService"));
@@ -59,7 +71,9 @@ namespace AlienCell.Server
 
             services.Configure<UserCacheOptions>(Configuration.GetSection("AlienCell.Server.Cache:UserCache"));
             services.AddSingleton<UserCache>();
-            services.AddSingleton<UserRepository>();
+            
+            services.AddScoped<IDbChangeSet, DbChangeSet>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
@@ -91,12 +105,15 @@ namespace AlienCell.Server
             //    Converters = new List<JsonConverter> { new UlidConverter() }
             //};
             //
+            //
             var msgPackResolver = MessagePack.Resolvers.CompositeResolver.Create(
                 Cysharp.Serialization.MessagePack.UlidMessagePackResolver.Instance,
                 MessagePack.Resolvers.StandardResolver.Instance);
-            var msgPackoptions = MessagePackSerializerOptions.Standard
+            //
+            var msgPackOptions = MessagePackSerializerOptions.Standard
                 .WithResolver(msgPackResolver);
-            MessagePackSerializer.DefaultOptions = msgPackoptions;
+            //
+            MessagePackSerializer.DefaultOptions = msgPackOptions;
             //
             Dapper.SqlMapper.AddTypeHandler(new BinaryUlidHandler());
             //

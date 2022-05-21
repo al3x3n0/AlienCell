@@ -397,6 +397,10 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 
+# Vim
+*.swp
+*.swo
+
 # docker deployment
 docker/volume_data/redis/*
 docker/volume_data/mariadb/*

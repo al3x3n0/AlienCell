@@ -10,18 +10,21 @@ using AlienCell.Server.Db.Models;
 namespace AlienCell.Server.Repositories
 {
 
-public partial class UserRepository
+public partial class UserRepository : IUserRepository
 {
 
     private readonly UserCache _userCache;
     private readonly DbContext _db;
+    private readonly IDbChangeSet _changes;
 
     public UserRepository(
         DbContext db,
-        UserCache userCache)
+        UserCache userCache,
+        IDbChangeSet changes)
     {
         this._db = db ?? throw new ArgumentNullException(nameof(db));
         this._userCache = userCache ?? throw new ArgumentNullException(nameof(userCache));
+        this._changes = changes ?? throw new ArgumentNullException(nameof(changes)); 
     }
 
     public async Task<UserModel> GetAsync(Ulid id)

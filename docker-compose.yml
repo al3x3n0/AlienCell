@@ -20,7 +20,7 @@ services:
             - '3306:3306'
         volumes:
             - 'mariadb_data:/bitnami/mariadb'
-            - $PWD/mariadb/init:/docker-entrypoint-initdb.d:ro
+            - $PWD/docker/mariadb/init:/docker-entrypoint-initdb.d:ro
         environment:
             - MARIADB_ROOT_PASSWORD=HMZx2R308eA3ULP3cUJx
             - MARIADB_DATABASE=ACDB
@@ -42,21 +42,21 @@ services:
             - '6222:6222'
             - "8222:8222"
         volumes:
-            - $PWD/nats/nats-server.conf:/bitnami/nats/conf/nats-server.conf:ro
+            - $PWD/docker/nats/nats-server.conf:/bitnami/nats/conf/nats-server.conf:ro
 
-    ac-debezium:
-        image: 'debezium/server'
-        ports:
-            - '8081:8080'
-        volumes:
-            - 'debezium_data:/debezium/data'
-            - 'debezium_conf:/debezium/conf'
-        links:
-            - ac-mariadb
-            - ac-redis
-        depends_on:
-            ac-mariadb:
-                condition: service_healthy
+    #ac-debezium:
+    #    image: 'debezium/server'
+    #    ports:
+    #        - '8081:8080'
+    #    volumes:
+    #        - 'debezium_data:/debezium/data'
+    #        - 'debezium_conf:/debezium/conf'
+    #    links:
+    #        - ac-mariadb
+    #        - ac-redis
+    #    depends_on:
+    #        ac-mariadb:
+    #            condition: service_healthy
 
 volumes:
     redis_data:

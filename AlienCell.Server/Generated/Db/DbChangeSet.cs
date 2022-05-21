@@ -50,56 +50,6 @@ public partial class DbChangeSet
         //    await cache.SetAsync(u.Value);
         //}
     }
-
-    public async Task FlushDbChanges(DbContext db)
-    {
-        using (var tx = db.BeginTransaction())
-        {
-
-            if (_artifact_models is not null)
-            {
-                foreach(var model in _artifact_models.Removed.Values)
-                {
-                    await db.Artifacts.DeleteAsync(model, tx);
-                }
-                await db.Artifacts.BulkInsertAsync(_artifact_models.Added.Values.ToList(), tx);
-                await db.Artifacts.BulkUpdateAsync(_artifact_models.Updated.Values.ToList(), tx);
-            }
-
-            if (_building_models is not null)
-            {
-                foreach(var model in _building_models.Removed.Values)
-                {
-                    await db.Buildings.DeleteAsync(model, tx);
-                }
-                await db.Buildings.BulkInsertAsync(_building_models.Added.Values.ToList(), tx);
-                await db.Buildings.BulkUpdateAsync(_building_models.Updated.Values.ToList(), tx);
-            }
-
-            if (_hero_models is not null)
-            {
-                foreach(var model in _hero_models.Removed.Values)
-                {
-                    await db.Heros.DeleteAsync(model, tx);
-                }
-                await db.Heros.BulkInsertAsync(_hero_models.Added.Values.ToList(), tx);
-                await db.Heros.BulkUpdateAsync(_hero_models.Updated.Values.ToList(), tx);
-            }
-
-            if (_weapon_models is not null)
-            {
-                foreach(var model in _weapon_models.Removed.Values)
-                {
-                    await db.Weapons.DeleteAsync(model, tx);
-                }
-                await db.Weapons.BulkInsertAsync(_weapon_models.Added.Values.ToList(), tx);
-                await db.Weapons.BulkUpdateAsync(_weapon_models.Updated.Values.ToList(), tx);
-            }
-
-            tx.Commit();
-        }
-
-    }
 }
 
 }

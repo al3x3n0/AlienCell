@@ -1,12 +1,14 @@
 
+using AlienCell.Shared.Protocol.Models;
+
 namespace AlienCell.Generated
 {
 
 public interface IRewardVisitor
 {
-    void Visit(RewardArtifact reward);
-    void Visit(RewardHero reward);
-    void Visit(RewardWeapon reward);
+    void Visit(RewardArtifactDTO reward);
+    void Visit(RewardHeroDTO reward);
+    void Visit(RewardWeaponDTO reward);
 }
 
 }

@@ -1,9 +1,12 @@
+using AutoMapper;
 using MagicOnion;
 using MagicOnion.Server;
 using Microsoft.AspNetCore.Authorization;
 
 using AlienCell.Shared.Services;
+using AlienCell.Shared.Protocol.Models;
 using AlienCell.Server.Db;
+using AlienCell.Server.Db.Models;
 using AlienCell.Server.Repositories;
 using AlienCell.Server.Filters;
 
@@ -15,23 +18,20 @@ namespace AlienCell.Server.Services
 [FromTypeFilter(typeof(FlushChangesAttribute))]
 public partial class GameService : ServiceBase<IGameService>, IGameService
 {
-    private readonly UserRepository _users;
-    public UserRepository Users { get => _users; }
+    private readonly IUserRepository _users;
+    private readonly IMapper _mapper;
+    public IUserRepository Users { get => _users; }
 
-    private DbChangeSet? Changes
-    {
-        get => (this.Context.Items[nameof(DbChangeSet)] as DbChangeSet);
-    }
-
-    public GameService(UserRepository users)
+    public GameService(IUserRepository users, IMapper mapper)
     {
         this._users = users;
+        this._mapper = mapper;
     }
 
-    public async UnaryResult<Ulid> GetUserAsync(Ulid id)
+    public async UnaryResult<UserModelDTO> GetUserAsync(Ulid id)
     {
         var user = await this.Users.GetAsync(id);
-        return user.Id;
+        return this._mapper.Map<UserModelDTO>(user);
     }
 }
 
