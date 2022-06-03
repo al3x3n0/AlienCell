@@ -1,14 +1,13 @@
+/* Generated/Structs/IRewardVisitor.cs */
 
-using AlienCell.Shared.Protocol.Models;
-
-namespace AlienCell.Generated
+namespace AlienCell.Shared.Structs
 {
 
 public interface IRewardVisitor
 {
-    void Visit(RewardArtifactDTO reward);
-    void Visit(RewardHeroDTO reward);
-    void Visit(RewardWeaponDTO reward);
+    void Visit(RewardArtifact reward);
+    void Visit(RewardHero reward);
+    void Visit(RewardWeapon reward);
 }
 
 }

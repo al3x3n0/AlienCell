@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -20,6 +21,7 @@ using AlienCell.Server.Cache;
 using AlienCell.Server.Db;
 using AlienCell.Server.Repositories;
 using AlienCell.Server.Services;
+using AlienCell.Server.GameData;
 
 
 namespace AlienCell.Server
@@ -71,6 +73,9 @@ namespace AlienCell.Server
 
             services.Configure<UserCacheOptions>(Configuration.GetSection("AlienCell.Server.Cache:UserCache"));
             services.AddSingleton<UserCache>();
+
+            services.Configure<GameDataServiceOptions>(Configuration.GetSection("AlienCell.Server.GameData"));
+            services.AddSingleton<GameDataService>();
             
             services.AddScoped<IDbChangeSet, DbChangeSet>();
             services.AddScoped<IUserRepository, UserRepository>();

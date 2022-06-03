@@ -1,15 +1,21 @@
 /* Generated/Data/HeroSkinData.cs */
 using MasterMemory;
-using MessagePack;
 
-namespace AlienCell.Generated
+using AlienCell.Shared.Structs;
+
+
+namespace AlienCell.Shared.Data
 {
 
-[MemoryTable("hero_skin_data"), MessagePackObject(true)]  
+[MemoryTable("hero_skin_data"), MessagePack.MessagePackObject(true)]  
 public class HeroSkinData
 {
+    public enum Types : int
+    {
+    }
+
     [PrimaryKey]
-    public int Id { get; set; }
+    public int Id { get; }
     public string Name { get; }
     public string Description { get; }
     public HeroSkinData (int Id, string Name, string Description)

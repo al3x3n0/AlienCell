@@ -8,10 +8,10 @@ using Nethereum.Hex.HexConvertors.Extensions;
 
 namespace AlienCell.Server.Db.Models
 {
-    [Table("Accounts")]
+    [Table("accounts")]
     public class AccountModel
     {
-        public Ulid Id { get; set; }
+        public Ulid Id { get; set; } = Ulid.NewUlid();
 
         public string DeviceUId { get; set; }
 

@@ -19,9 +19,10 @@ public class UserModel : IModel
     [Key]
     public Ulid Id { get; set; } = Ulid.NewUlid();
 
-    [Key]
-    public byte[] Address { get; set; }
-
+    public Ulid AccountId { get; set; }
+    
+    [LeftJoin("accounts", "AccountId", "Id")]
+    public AccountModel Account { get; set; }
     [NotMapped]
     public Dictionary<Ulid, ArtifactModel> Artifacts { get; set; } = new Dictionary<Ulid, ArtifactModel>();
     [NotMapped]

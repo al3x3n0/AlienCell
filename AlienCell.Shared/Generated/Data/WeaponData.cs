@@ -1,19 +1,26 @@
 /* Generated/Data/WeaponData.cs */
 using MasterMemory;
-using MessagePack;
 
-namespace AlienCell.Generated
+using AlienCell.Shared.Structs;
+
+
+namespace AlienCell.Shared.Data
 {
 
-[MemoryTable("weapon_data"), MessagePackObject(true)]  
+[MemoryTable("weapon_data"), MessagePack.MessagePackObject(true)]  
 public class WeaponData
 {
+    public enum Types : int
+    {
+        NANOEDGESWORD = 0,
+    }
+
     [PrimaryKey]
-    public int Id { get; set; }
+    public int Id { get; }
     public string Name { get; }
     public string Description { get; }
-    public WeaponLadderData Ladder { get; }
-    public WeaponData (int Id, string Name, string Description, WeaponLadderData Ladder)
+    public WeaponLadderData.Types Ladder { get; }
+    public WeaponData (int Id, string Name, string Description, WeaponLadderData.Types Ladder)
     {
         this.Id = Id;
         this.Name = Name;

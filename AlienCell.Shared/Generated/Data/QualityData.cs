@@ -1,15 +1,24 @@
 /* Generated/Data/QualityData.cs */
 using MasterMemory;
-using MessagePack;
 
-namespace AlienCell.Generated
+using AlienCell.Shared.Structs;
+
+
+namespace AlienCell.Shared.Data
 {
 
-[MemoryTable("quality_data"), MessagePackObject(true)]  
+[MemoryTable("quality_data"), MessagePack.MessagePackObject(true)]  
 public class QualityData
 {
+    public enum Types : int
+    {
+        COMMON = 0,
+        RARE = 1,
+        SUPERRARE = 2,
+    }
+
     [PrimaryKey]
-    public int Id { get; set; }
+    public int Id { get; }
     public string Name { get; }
     public QualityData (int Id, string Name)
     {

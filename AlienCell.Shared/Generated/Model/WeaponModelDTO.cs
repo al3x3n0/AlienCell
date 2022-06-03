@@ -2,6 +2,8 @@
 using System;
 using MessagePack;
 
+using AlienCell.Shared.Structs;
+
 
 namespace AlienCell.Shared.Protocol.Models
 {
@@ -11,7 +13,7 @@ public class WeaponModelDTO
 {
     public long Exp { get; set; }
     public long Level { get; set; }
-    public long Data { get; set; }
+    public int Data { get; set; }
 }
 
 }

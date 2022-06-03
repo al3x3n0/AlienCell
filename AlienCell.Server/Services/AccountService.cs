@@ -31,9 +31,19 @@ namespace AlienCell.Server.Services
         {
             var accModel = new AccountModel();
             _mapper.Map(req, accModel);
-            await _db.Accounts.InsertAsync(accModel);
-            var accDto = _mapper.Map<AccountDTO>(accModel);
-            return new RegisterAccountResponse() { Success = true, Account = accDto };
+            using (var tx = this._db.BeginTransaction())
+            {
+                await _db.Accounts.InsertAsync(accModel, tx);
+                var defaultUserModel = new UserModel()
+                {
+                    AccountId = accModel.Id
+                };
+                await _db.Users.InsertAsync(defaultUserModel, tx);
+                tx.Commit();
+
+                var accDto = _mapper.Map<AccountDTO>(accModel);
+                return new RegisterAccountResponse() { Success = true, Account = accDto, UserId = defaultUserModel.Id };
+            }
         }
 
         public async UnaryResult<UpdateAccountResponse> UpdateAccount(UpdateAccountRequest req)

@@ -14,7 +14,8 @@ public partial class DbContext
 
     private void InitDb()
     {
-        Connection.Execute("CREATE TABLE IF NOT EXISTS `user_models` (`Id` varbinary(16) not null, `Address` varbinary(32) default null, INDEX `Address_Idx` (`Address`), PRIMARY KEY (`Id`));");
+        Connection.Execute("CREATE TABLE IF NOT EXISTS `accounts` ( `Id` varbinary(16) not null, `Address` varchar(40) not null default '', `DeviceUId` varchar(255) not null default '', `Name` varchar(127) not null default '', `Email` varchar(255) not null default '', `Phone` varchar(15) not null default '', `PasswordHash` varbinary(32) default null, `EKS` text not null default '', `EKSHash` varbinary(32) default null, `CreatedAt` timestamp not null default CURRENT_TIMESTAMP, `UpdatedAt` timestamp not null default CURRENT_TIMESTAMP, INDEX `Address_Idx` (`Address`), PRIMARY KEY (`Id`));");
+        Connection.Execute("CREATE TABLE IF NOT EXISTS `user_models` ( `Id` varbinary(16) not null, `AccountId` varbinary(16) not null, `Exp` BIGINT not null default 0, `Level` INT not null default 0, INDEX `Address_Idx` (`Address`), PRIMARY KEY (`Id`));");
         Connection.Execute("CREATE TABLE IF NOT EXISTS `artifact_models` (`Id` varbinary(16) not null, `UserId` varbinary(16) not null, `Exp` int not null, `Level` int not null, `Data` int not null, PRIMARY KEY (`Id`));");
         Connection.Execute("CREATE TABLE IF NOT EXISTS `building_models` (`Id` varbinary(16) not null, `UserId` varbinary(16) not null, `Level` int not null, `Data` int not null, PRIMARY KEY (`Id`));");
         Connection.Execute("CREATE TABLE IF NOT EXISTS `hero_models` (`Id` varbinary(16) not null, `UserId` varbinary(16) not null, `Exp` int not null, `Level` int not null, `Data` int not null, PRIMARY KEY (`Id`));");

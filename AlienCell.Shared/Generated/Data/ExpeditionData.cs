@@ -1,15 +1,21 @@
 /* Generated/Data/ExpeditionData.cs */
 using MasterMemory;
-using MessagePack;
 
-namespace AlienCell.Generated
+using AlienCell.Shared.Structs;
+
+
+namespace AlienCell.Shared.Data
 {
 
-[MemoryTable("expedition_data"), MessagePackObject(true)]  
+[MemoryTable("expedition_data"), MessagePack.MessagePackObject(true)]  
 public class ExpeditionData
 {
+    public enum Types : int
+    {
+    }
+
     [PrimaryKey]
-    public int Id { get; set; }
+    public int Id { get; }
     public string Name { get; }
     public string Description { get; }
     public ExpeditionData (int Id, string Name, string Description)

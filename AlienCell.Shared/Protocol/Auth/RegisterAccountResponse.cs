@@ -6,13 +6,11 @@ using AlienCell.Shared.Protocol.Models;
 
 namespace AlienCell.Shared.Protocol
 {
-    [MessagePackObject]    
+    [MessagePackObject(true)]    
     public class RegisterAccountResponse
     {
-        [Key(0)]
-        public AccountDTO Account { get; set; }
-        
-        [Key(1)]
+        public AccountDTO Account { get; set; }        
         public bool Success { get; set; }
+        public Ulid UserId { get; set; }
     }
 }

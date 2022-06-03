@@ -1,15 +1,23 @@
 /* Generated/Data/AffinityData.cs */
 using MasterMemory;
-using MessagePack;
 
-namespace AlienCell.Generated
+using AlienCell.Shared.Structs;
+
+
+namespace AlienCell.Shared.Data
 {
 
-[MemoryTable("affinity_data"), MessagePackObject(true)]  
+[MemoryTable("affinity_data"), MessagePack.MessagePackObject(true)]  
 public class AffinityData
 {
+    public enum Types : int
+    {
+        MELANCHOLY = 0,
+        LUST = 1,
+    }
+
     [PrimaryKey]
-    public int Id { get; set; }
+    public int Id { get; }
     public string Name { get; }
     public string Description { get; }
     public AffinityData (int Id, string Name, string Description)

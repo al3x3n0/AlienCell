@@ -14,10 +14,10 @@
   </ItemGroup>
 
   <!-- Call code generator before-build. -->
-  <!--Target Name="MasterMemoryGen" BeforeTargets="BeforeBuild" -->
+  <Target Name="MasterMemoryGen" BeforeTargets="BeforeBuild">
     <!-- Configuration of Code-Generator, `UsingNamespace`, `InputDirectory`, `OutputDirectory` and `AddImmutableConstructor`. -->
-    <!-- MasterMemoryGenerator UsingNamespace="$(ProjectName).Data" InputDirectory="$(ProjectDir)Data" OutputDirectory="$(ProjectDir)Generated/DataTables" / -->
-  <!-- /Target -->
+    <MasterMemoryGenerator UsingNamespace="$(ProjectName).Data" InputDirectory="$(ProjectDir)Generated/Data" OutputDirectory="$(ProjectDir)Generated/DataTables"/>
+  </Target>
 
 </Project>
 

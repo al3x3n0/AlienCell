@@ -1,3 +1,4 @@
+using System;
 using MessagePack;
 
 
@@ -17,7 +18,7 @@ namespace AlienCell.Shared.Protocol.Models
 
         public string Phone { get; set; }
 
-        public byte[] Address { get; set; }
+        public string Address { get; set; }
 
         public string EKSHash { get; set; }
 

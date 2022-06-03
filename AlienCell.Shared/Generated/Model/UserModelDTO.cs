@@ -2,6 +2,8 @@
 using System;
 using MessagePack;
 
+using AlienCell.Shared.Structs;
+
 
 namespace AlienCell.Shared.Protocol.Models
 {

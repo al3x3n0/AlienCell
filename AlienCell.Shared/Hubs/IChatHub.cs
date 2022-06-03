@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using MagicOnion;
 
 using AlienCell.Shared.Protocol;
