@@ -20,6 +20,7 @@ public partial class UserRepository
         {
             return null;
         }
+        var user_inventory = await _db.UserInventory.FindAllAsync(x => x.UserId == id);
         var artifact_models = await _db.Artifacts.FindAllAsync(x => x.UserId == id);
         user.Artifacts = artifact_models.ToDictionary(x => x.Id, x => x);
         var building_models = await _db.Buildings.FindAllAsync(x => x.UserId == id);
@@ -67,6 +68,11 @@ public partial class UserRepository
     {
         using (var tx = this._db.BeginTransaction())
         {
+            if (this._changes.UserInventory is not null)
+            {
+                await this._db.UserInventory.BulkInsertAsync(this._changes.UserInventory.Added.Values.ToList(), tx);
+                await this._db.UserInventory.BulkUpdateAsync(this._changes.UserInventory.Updated.Values.ToList(), tx);
+            }
 
             if (this._changes.Artifacts is not null)
             {

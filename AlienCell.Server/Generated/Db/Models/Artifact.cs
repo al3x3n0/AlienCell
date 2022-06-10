@@ -13,16 +13,16 @@ namespace AlienCell.Server.Db.Models
 
 [MessagePack.MessagePackObject(true)]
 [Table("artifact_models")]
-public class ArtifactModel : IModel
+public class ArtifactModel : IModel<Ulid>
 {
     [Key]
     public Ulid Id { get; set; } = Ulid.NewUlid();
 
     public Ulid UserId { get; set; }
 
-    public long Exp { get; set; }
-    public long Level { get; set; }
-    public long Data { get; set; }
+    public ulong Exp { get; set; }
+    public int Level { get; set; }
+    public int Data { get; set; }
 }
 
 }

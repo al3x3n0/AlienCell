@@ -11,7 +11,7 @@ namespace AlienCell.Shared.Protocol.Models
 [MessagePackObject(true)]
 public class BuildingModelDTO
 {
-    public long Level { get; set; }
+    public int Level { get; set; }
     public int Data { get; set; }
 }
 

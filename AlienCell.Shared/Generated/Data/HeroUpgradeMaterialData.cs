@@ -21,9 +21,9 @@ public class HeroUpgradeMaterialData
     public int Id { get; }
     public string Type { get; }
     public string Name { get; }
-    public long Value { get; }
+    public ulong Value { get; }
     public string Description { get; }
-    public HeroUpgradeMaterialData (int Id, string Type, string Name, long Value, string Description)
+    public HeroUpgradeMaterialData (int Id, string Type, string Name, ulong Value, string Description)
     {
         this.Id = Id;
         this.Type = Type;

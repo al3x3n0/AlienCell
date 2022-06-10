@@ -12,7 +12,7 @@ namespace AlienCell.Shared.Structs
 public class RewardHero
 {
     public HeroData.Types Hero { get; set; }
-    public long Amount { get; set; }
+    public int Amount { get; set; }
 }
 
 }

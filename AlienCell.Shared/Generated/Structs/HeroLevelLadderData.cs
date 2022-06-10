@@ -11,7 +11,7 @@ namespace AlienCell.Shared.Structs
 [MessagePackObject(true)]
 public class HeroLevelLadderData
 {
-    public long Experience { get; set; }
+    public ulong Experience { get; set; }
 }
 
 }

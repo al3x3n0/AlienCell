@@ -2,6 +2,8 @@
 using MagicOnion;
 
 using AlienCell.Shared.Services;
+using AlienCell.Server.Db.Models;
+
 
 namespace AlienCell.Server.Services
 {

@@ -12,7 +12,7 @@ namespace AlienCell.Shared.Structs
 public class RewardArtifact
 {
     public ArtifactData.Types Hero { get; set; }
-    public long Amount { get; set; }
+    public int Amount { get; set; }
 }
 
 }

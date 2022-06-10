@@ -7,7 +7,7 @@ using AlienCell.Shared.Data;
 
 namespace AlienCell.Server.GameData
 {
-    public class GameDataService
+    public partial class GameDataService
     {
         private readonly MemoryDatabase _db;
         public MemoryDatabase Db { get => this._db; }    

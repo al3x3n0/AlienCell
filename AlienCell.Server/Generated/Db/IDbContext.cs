@@ -10,6 +10,7 @@ namespace AlienCell.Server.Db
 public interface IDbContext : IDapperDbContext
 {
     IDapperRepository<UserModel> Users { get; }
+    IDapperRepository<UserInventoryModel> UserInventory { get; }
     IDapperRepository<ArtifactModel> Artifacts { get; }
     IDapperRepository<BuildingModel> Buildings { get; }
     IDapperRepository<HeroModel> Heros { get; }

@@ -13,6 +13,7 @@
     <PackageReference Include="EasyCaching.Redis" Version="1.6.0" />
     <PackageReference Include="EasyCaching.Serialization.MessagePack" Version="1.6.0" />
     <PackageReference Include="Grpc.AspNetCore" Version="2.40.0" />
+    <PackageReference Include="Jint" Version="2.11.58" />
     <PackageReference Include="MagicOnion" Version="4.4.1" />
     <PackageReference Include="MagicOnion.Server" Version="4.4.1" />
     <PackageReference Include="MessagePipe" Version="1.7.2" />

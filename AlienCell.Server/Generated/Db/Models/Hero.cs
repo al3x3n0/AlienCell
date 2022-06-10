@@ -13,16 +13,16 @@ namespace AlienCell.Server.Db.Models
 
 [MessagePack.MessagePackObject(true)]
 [Table("hero_models")]
-public class HeroModel : IModel
+public class HeroModel : IModel<Ulid>
 {
     [Key]
     public Ulid Id { get; set; } = Ulid.NewUlid();
 
     public Ulid UserId { get; set; }
 
-    public long Exp { get; set; }
-    public long Level { get; set; }
-    public long Data { get; set; }
+    public ulong Exp { get; set; }
+    public int Level { get; set; }
+    public int Data { get; set; }
 }
 
 }

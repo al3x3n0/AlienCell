@@ -11,7 +11,7 @@ namespace AlienCell.Shared.Structs
 [MessagePackObject(true)]
 public class WeaponLevelLadderData
 {
-    public long Experience { get; set; }
+    public ulong Experience { get; set; }
 }
 
 }

@@ -1,14 +1,16 @@
 using System;
 using System.Collections.Generic;
 
+using AlienCell.Server.Db.Models;
+
 
 namespace AlienCell.Server.Db
 {
-    public class ChangeSet<T> where T : IModel
+    public class ChangeSet<TKey, T> where T : IModel<TKey>
     {
-        public Dictionary<Ulid, T> Added { get; set; } = new Dictionary<Ulid, T>();
-        public Dictionary<Ulid, T> Updated { get; set; } = new Dictionary<Ulid, T>();
-        public Dictionary<Ulid, T> Removed { get; set; } = new Dictionary<Ulid, T>();
+        public Dictionary<TKey, T> Added { get; set; } = new Dictionary<TKey, T>();
+        public Dictionary<TKey, T> Updated { get; set; } = new Dictionary<TKey, T>();
+        public Dictionary<TKey, T> Removed { get; set; } = new Dictionary<TKey, T>();
 
         public void Add(T model)
         {

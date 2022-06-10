@@ -12,17 +12,8 @@ using AlienCell.Server.Db;
 namespace AlienCell.Server.Db.Models
 {
 
-[MessagePack.MessagePackObject(true)]
-[Table("user_models")]
-public class UserModel : IModel
+public partial class UserModel
 {
-    [Key]
-    public Ulid Id { get; set; } = Ulid.NewUlid();
-
-    public Ulid AccountId { get; set; }
-    
-    [LeftJoin("accounts", "AccountId", "Id")]
-    public AccountModel Account { get; set; }
     [NotMapped]
     public Dictionary<Ulid, ArtifactModel> Artifacts { get; set; } = new Dictionary<Ulid, ArtifactModel>();
     [NotMapped]

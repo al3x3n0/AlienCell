@@ -1,10 +1,10 @@
 using System;
 
 
-namespace AlienCell.Server.Db
+namespace AlienCell.Server.Db.Models
 {
-    public interface IModel
+    public interface IModel<TKey>
     {
-        Ulid Id { get; set; }
+        TKey Id { get; }
     }
 }
