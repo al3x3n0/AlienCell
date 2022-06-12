@@ -1,16 +1,13 @@
+using System;
 using MessagePack;
 
 
 namespace AlienCell.Shared.Protocol
 {
-    [MessagePackObject]
+    [MessagePackObject(true)]
     public class RegisterAccountRequest
     {
-        [Key(0)]
-        public string Address { get; set; }
-
-        [Key(1)]
-        public string DeviceUId { get; set; }
+        public byte[] Address { get; set; } = Array.Empty<byte>();
+        public string DeviceUId { get; set; } = string.Empty;
     }
 }
-

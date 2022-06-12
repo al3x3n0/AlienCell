@@ -17,13 +17,11 @@ namespace AlienCell.Server.Services
     public class AccountService : ServiceBase<IAccountService>, IAccountService
     {
         private readonly IMapper _mapper;
-        private readonly DbContext _db;
+        private readonly IDbContext _db;
 
-        public AccountService(
-            IMapper mapper,
-            DbContext db)
+        public AccountService(IMapper mapper, IDbContext db)
         {
-            this._mapper = mapper;
+            this._mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             this._db = db ?? throw new ArgumentNullException(nameof(db));
         }
 
@@ -31,6 +29,11 @@ namespace AlienCell.Server.Services
         {
             var accModel = new AccountModel();
             _mapper.Map(req, accModel);
+            //
+            var now = DateTime.Now;
+            accModel.UpdatedAt = now;
+            accModel.CreatedAt = now;
+            //
             using (var tx = this._db.BeginTransaction())
             {
                 await _db.Accounts.InsertAsync(accModel, tx);

@@ -11,6 +11,7 @@ namespace AlienCell.Server.Mappings
     {
         public AutoMapping()
         {
+            CreateMap<AccountModel, RegisterAccountRequest>().ReverseMap();
             CreateMap<AccountModel, AccountDTO>().ReverseMap();
             CreateMap<UpdateAccountRequest, AccountModel>();
             CreateGeneratedMappings();

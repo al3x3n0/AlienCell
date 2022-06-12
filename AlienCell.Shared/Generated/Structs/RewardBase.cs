@@ -8,7 +8,6 @@ using AlienCell.Shared.Data;
 namespace AlienCell.Shared.Structs
 {
 
-[MessagePackObject(true)]
 public abstract class RewardBase
 {
 

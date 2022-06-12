@@ -1,5 +1,6 @@
 /* Generated/Model/HeroModel.cs */
 using System;
+using System.Collections.Generic;
 using MessagePack;
 
 using AlienCell.Shared.Structs;

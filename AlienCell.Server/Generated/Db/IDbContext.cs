@@ -7,7 +7,7 @@ using AlienCell.Server.Db.Models;
 namespace AlienCell.Server.Db
 {
 
-public interface IDbContext : IDapperDbContext
+public partial interface IDbContext
 {
     IDapperRepository<UserModel> Users { get; }
     IDapperRepository<UserInventoryModel> UserInventory { get; }

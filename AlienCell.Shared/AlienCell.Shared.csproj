@@ -1,22 +1,31 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="MagicOnion" Version="4.4.1" />
+    <PackageReference Include="MagicOnion.MSBuild.Tasks" Version="4.5.0" />
     <PackageReference Include="MasterMemory" Version="2.4.3" />
     <PackageReference Include="MasterMemory.MSBuild.Tasks" Version="2.4.3" PrivateAssets="All" />
+    <PackageReference Include="MessagePack.MSBuild.Tasks" Version="2.1.115" PrivateAssets="All" />    
     <PackageReference Include="Ulid" Version="1.2.6" />
   </ItemGroup>
 
   <!-- Call code generator before-build. -->
   <Target Name="MasterMemoryGen" BeforeTargets="BeforeBuild">
     <!-- Configuration of Code-Generator, `UsingNamespace`, `InputDirectory`, `OutputDirectory` and `AddImmutableConstructor`. -->
-    <MasterMemoryGenerator UsingNamespace="$(ProjectName).Data" InputDirectory="$(ProjectDir)Generated/Data" OutputDirectory="$(ProjectDir)Generated/DataTables"/>
+    <MasterMemoryGenerator UsingNamespace="$(ProjectName).Data" InputDirectory="$(ProjectDir)Generated/Data" OutputDirectory="$(ProjectDir)Generated/DataTables" />
+  </Target>
+
+  <Target Name="GenerateMessagePack" AfterTargets="Compile">
+    <MessagePackGenerator Input="./AlienCell.Shared.csproj" Output="../AlienCell.Unity.Generated/MessagePack.Generated.cs" />
+  </Target>
+
+  <Target Name="GenerateMagicOnion" AfterTargets="Compile">
+    <MagicOnionGenerator Input="./AlienCell.Shared.csproj" Output="../AlienCell.Unity.Generated/MagicOnion.Generated.cs" />
   </Target>
 
 </Project>

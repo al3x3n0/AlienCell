@@ -1,4 +1,5 @@
 /* Generated/Data/ArtifactUpgradeMaterialData.cs */
+using System.Collections.Generic;
 using MasterMemory;
 
 using AlienCell.Shared.Structs;

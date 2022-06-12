@@ -1,4 +1,5 @@
 /* Generated/Data/ArtifactData.cs */
+using System.Collections.Generic;
 using MasterMemory;
 
 using AlienCell.Shared.Structs;

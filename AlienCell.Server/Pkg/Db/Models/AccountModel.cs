@@ -15,20 +15,20 @@ namespace AlienCell.Server.Db.Models
 
         public string DeviceUId { get; set; }
 
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
         
-        public string Email { get; set; }
-        public string PasswordHash { get; set; }
+        public string Email { get; set; } = string.Empty;
+        public string PasswordHash { get; set; } = string.Empty;
 
-        public string Phone { get; set; }
+        public string Phone { get; set; } = string.Empty;
 
-        public byte[] Address { get; set; }
+        public byte[] Address { get; set; } = Array.Empty<byte>();
 
         [NotMapped]
         public string AddressHex { get => Address.ToHex(); }
 
-        public string EKS { get; set; }
-        public string EKSHash { get; set; }
+        public string EKS { get; set; } = string.Empty;
+        public string EKSHash { get; set; } = string.Empty;
 
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }

@@ -1,5 +1,6 @@
 /* Generated/Model/UserModel.cs */
 using System;
+using System.Collections.Generic;
 using MessagePack;
 
 using AlienCell.Shared.Structs;
