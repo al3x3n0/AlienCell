@@ -9,10 +9,15 @@ namespace AlienCell.Shared.Structs
 {
 
 [MessagePackObject(true)]
-public class RewardArtifact
+public class RewardArtifact : RewardBase
 {
-    public ArtifactData.Types Hero { get; set; }
+    public ArtifactData.Types Artifact { get; set; }
     public int Amount { get; set; }
+
+    public override void Accept(IRewardVisitor visitor)
+    {
+        visitor.Visit(this);
+    }
 }
 
 }

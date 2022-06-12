@@ -17,7 +17,7 @@ public partial class CheatService
                 Data = dataId
             };
         var user = await _userRepo.GetAsync(userId);
-        await _userRepo.AddToUserAsync(user, weapon_model);
+        _userRepo.AddToUser(user, weapon_model);
         return weapon_model.Id;
     }
 }

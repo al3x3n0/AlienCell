@@ -9,10 +9,15 @@ namespace AlienCell.Shared.Structs
 {
 
 [MessagePackObject(true)]
-public class RewardWeapon
+public class RewardWeapon : RewardBase
 {
-    public WeaponData.Types Hero { get; set; }
+    public WeaponData.Types Weapon { get; set; }
     public int Amount { get; set; }
+
+    public override void Accept(IRewardVisitor visitor)
+    {
+        visitor.Visit(this);
+    }
 }
 
 }

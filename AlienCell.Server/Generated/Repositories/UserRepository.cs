@@ -32,7 +32,7 @@ public partial class UserRepository
         return user;
     }
 
-    public async Task<ArtifactModel> AddToUserAsync(UserModel user, ArtifactModel artifact)
+    public ArtifactModel AddToUser(UserModel user, ArtifactModel artifact)
     {
         artifact.UserId = user.Id;
         user.Artifacts[artifact.Id] = artifact;           
@@ -40,7 +40,14 @@ public partial class UserRepository
         return artifact;
     }
 
-    public async Task<BuildingModel> AddToUserAsync(UserModel user, BuildingModel building)
+    public bool RemoveFromUser(UserModel user, ArtifactModel artifact)
+    {
+        var success = user.Artifacts.Remove(artifact.Id);           
+        this._changes.Artifacts.Remove(artifact);
+        return success;
+    }
+
+    public BuildingModel AddToUser(UserModel user, BuildingModel building)
     {
         building.UserId = user.Id;
         user.Buildings[building.Id] = building;           
@@ -48,7 +55,14 @@ public partial class UserRepository
         return building;
     }
 
-    public async Task<HeroModel> AddToUserAsync(UserModel user, HeroModel hero)
+    public bool RemoveFromUser(UserModel user, BuildingModel building)
+    {
+        var success = user.Buildings.Remove(building.Id);           
+        this._changes.Buildings.Remove(building);
+        return success;
+    }
+
+    public HeroModel AddToUser(UserModel user, HeroModel hero)
     {
         hero.UserId = user.Id;
         user.Heros[hero.Id] = hero;           
@@ -56,12 +70,26 @@ public partial class UserRepository
         return hero;
     }
 
-    public async Task<WeaponModel> AddToUserAsync(UserModel user, WeaponModel weapon)
+    public bool RemoveFromUser(UserModel user, HeroModel hero)
+    {
+        var success = user.Heros.Remove(hero.Id);           
+        this._changes.Heros.Remove(hero);
+        return success;
+    }
+
+    public WeaponModel AddToUser(UserModel user, WeaponModel weapon)
     {
         weapon.UserId = user.Id;
         user.Weapons[weapon.Id] = weapon;           
         this._changes.Weapons.Add(weapon);
         return weapon;
+    }
+
+    public bool RemoveFromUser(UserModel user, WeaponModel weapon)
+    {
+        var success = user.Weapons.Remove(weapon.Id);           
+        this._changes.Weapons.Remove(weapon);
+        return success;
     }
 
     public async Task CommitChanges()

@@ -44,6 +44,21 @@ services:
         volumes:
             - $PWD/docker/nats/nats-server.conf:/bitnami/nats/conf/nats-server.conf:ro
 
+    ac-gameserver:
+        build:
+            context: $PWD/docker/gameserver
+        environment:
+            - ASPNETCORE_ENVIRONMENT=devel
+        links:
+            - ac-mariadb
+            - ac-redis
+        ports:
+            - '8001:8001'
+            - '8002:8002'
+        volumes:
+            - $PWD/docker/gameserver/appsettings.devel.json:/app/appsettings.devel.json:ro
+            - $PWD/docker/gameserver/GameData.bin:/app/GameData.bin:ro
+
     #ac-debezium:
     #    image: 'debezium/server'
     #    ports:

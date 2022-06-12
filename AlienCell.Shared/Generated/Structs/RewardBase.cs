@@ -9,8 +9,11 @@ namespace AlienCell.Shared.Structs
 {
 
 [MessagePackObject(true)]
-public class RewardBase
+public abstract class RewardBase
 {
+
+    public abstract void Accept(IRewardVisitor visitor);
 }
 
 }
+
